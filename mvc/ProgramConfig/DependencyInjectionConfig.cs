@@ -1,12 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using mvc.Areas.Identity.Data;
 using mvc.Extensions;
-using System;
 
 namespace mvc.ProgramConfig
 {
@@ -19,12 +14,19 @@ namespace mvc.ProgramConfig
 
             service.AddCustomClaims();
 
-            AddAllSingleton(service);
+            MyAllSingleton(service);
+            MyScoped(service);
 
             return service;
         }
 
-        private static IServiceCollection AddAllSingleton(IServiceCollection service)
+        private static IServiceCollection MyScoped(IServiceCollection service)
+        {
+            service.AddScoped<CustonActionFilterExtensions>();
+            return service;
+        }
+
+        private static IServiceCollection MyAllSingleton(IServiceCollection service)
         {
             service.AddSingleton<IAuthorizationHandler, PermissionRequiredHandler>();
             return service;

@@ -23,9 +23,12 @@ public class HomeController : Controller
         return View();
     }
 
-    public JsonResult PageWithError()
+    public JsonResult Error()
     {
-        throw new Exception("Erro proposital");
+        string messageError = "Erro foi proposital";
+        _logger.LogError(messageError);
+
+        throw new Exception(messageError);
     }
 
     [Authorize]
