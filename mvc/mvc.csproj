@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
 	  <IdentityUIFrameworkVersion>Bootstrap5</IdentityUIFrameworkVersion>
+	  <UserSecretsId>b4695b29-4b00-4ad8-bf90-8d70e2f6536e</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using mvc.Models;
 using mvc.ProgramConfig;
+using System;
 using System.Diagnostics;
 
 namespace mvc.Controllers;
@@ -19,6 +21,11 @@ public class HomeController : Controller
     public IActionResult Index()
     {
         return View();
+    }
+
+    public JsonResult PageWithError()
+    {
+        throw new Exception("Erro proposital");
     }
 
     [Authorize]
@@ -51,9 +58,37 @@ public class HomeController : Controller
         return View();
     }
 
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
+    [Route("Error/{statusCode:length(3,3)}")] //3 caracteres ex: 000
+    public IActionResult Error(int statusCode)
     {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        ErrorViewModel errorView = new() { RequestId = Activity.Current?.Id };
+
+        if (statusCode == StatusCodes.Status500InternalServerError)
+        {
+            errorView.Title = "InternalServerError";
+            errorView.Message = "Ocorreu um erro 500";
+        }
+        else if (statusCode == StatusCodes.Status400BadRequest)
+        {
+            errorView.Title = "BadRequest";
+            errorView.Message = "A Página que está procurando não existe! <br/> Em caso de dúvidas entre em contato com nosso suporte";
+        }
+        else if (statusCode == StatusCodes.Status403Forbidden)
+        {
+            errorView.Title = "Forbidden";
+            errorView.Message = "Você nao tem permissão para este recurso";
+        }
+        else if (statusCode == StatusCodes.Status404NotFound)
+        {
+            errorView.Title = "NotFound";
+            errorView.Message = "A Página que está procurando não existe! <br/> Em caso de dúvidas entre em contato com nosso suporte";
+        }
+        else
+        {
+            errorView.Title = "ERRO";
+            errorView.Message = $"Ocorreu um erro {statusCode}";
+        }
+
+        return View("Error", errorView);
     }
 }
