@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using mvc.Extensions;
 using mvc.Models;
 using System.Diagnostics;
 
@@ -26,14 +27,26 @@ public class HomeController : Controller
         return View();
     }
 
-    [Authorize(Roles = "Admin,AdminSuper")]
-    [Authorize(Policy = "Delete")]
+    [Authorize(Roles = "Admin,User")]
     public IActionResult Admin()
     {
         return View();
     }
 
     public IActionResult Privacy()
+    {
+        return View();
+    }
+
+    [Authorize(Policy = "Delete")]
+    public IActionResult Delete()
+    {
+        return View();
+    }
+
+    //adicionar no aspnetUserClaims on Table database
+    [ClaimsAuthorize("Home", "Delete")]
+    public IActionResult ClaimsAuthorize()
     {
         return View();
     }

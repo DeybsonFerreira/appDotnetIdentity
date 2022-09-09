@@ -7,6 +7,7 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCustomDependences(builder);
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
+builder.Services.SetCustomCookies();
 
 var app = builder.Build();
 
@@ -19,7 +20,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
-app.UseCookiePolicy();
+
 
 app.UseAuthentication();
 app.UseAuthorization();

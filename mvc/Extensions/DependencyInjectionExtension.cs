@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -12,22 +13,19 @@ namespace mvc.Extensions
     {
         public static IServiceCollection AddCustomDependences(this IServiceCollection service, WebApplicationBuilder builder)
         {
-            //conectionString do appsettings.json
-            var connectionString = builder.Configuration.GetConnectionString("AppDotnetIdentityContextConnection") ?? throw new InvalidOperationException("Connection string 'AppDotnetIdentityContextConnection' not found.");
 
-            service.AddDbContext<AppDotnetIdentityContext>(options =>
-            options.UseSqlServer(connectionString));
+            RegisterIdentityExtensions.AddIdentityDependences(service, builder);
 
-            service.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddDefaultUI()//parte visual do identity
-                .AddRoles<IdentityRole>()  // habilitar suporte roles.
-                .AddEntityFrameworkStores<AppDotnetIdentityContext>(); //usando com entity framework
+            RegisterClaimsExtensions.AddCustomClaims(service);
 
-            //add policy
-            service.AddAuthorization(options =>
-            {
-                options.AddPolicy("Delete", policy => policy.RequireClaim("Delete"));
-            });
+            AddAllSingleton(service);
+
+            return service;
+        }
+
+        private static IServiceCollection AddAllSingleton(IServiceCollection service)
+        {
+            service.AddSingleton<IAuthorizationHandler, PermissionRequiredHandler>();
             return service;
         }
 
