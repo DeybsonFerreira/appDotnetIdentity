@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using mvc.Extensions;
 using mvc.Models;
+using mvc.ProgramConfig;
 using System.Diagnostics;
 
 namespace mvc.Controllers;

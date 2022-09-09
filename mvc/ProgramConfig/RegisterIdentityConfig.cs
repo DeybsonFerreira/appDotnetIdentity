@@ -6,9 +6,9 @@ using Microsoft.Extensions.DependencyInjection;
 using mvc.Areas.Identity.Data;
 using System;
 
-namespace mvc.Extensions
+namespace mvc.ProgramConfig
 {
-    public static class RegisterIdentityExtensions
+    public static class RegisterIdentityConfig
     {
         public static IServiceCollection AddIdentityDependences(this IServiceCollection service, WebApplicationBuilder builder)
         {

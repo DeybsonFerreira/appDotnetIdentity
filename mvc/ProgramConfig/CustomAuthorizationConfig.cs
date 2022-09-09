@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using System.Linq;
 using System.Security.Claims;
 
-namespace mvc.Extensions
+namespace mvc.ProgramConfig
 {
-    public static class CustomAuthorization
+    public static class CustomAuthorizationConfig
     {
 
         public static bool ValidUserClaims(HttpContext context, string claimName, string claimValue)
@@ -26,7 +26,7 @@ namespace mvc.Extensions
 
         public void OnAuthorization(AuthorizationFilterContext context)
         {
-            if (!CustomAuthorization.ValidUserClaims(context.HttpContext, _claim.Type, _claim.Value))
+            if (!CustomAuthorizationConfig.ValidUserClaims(context.HttpContext, _claim.Type, _claim.Value))
             {
                 context.Result = new ForbidResult();
             }

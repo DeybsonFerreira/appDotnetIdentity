@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Razor;
+using mvc.ProgramConfig;
 
 namespace mvc.Extensions
 {
@@ -6,7 +7,7 @@ namespace mvc.Extensions
     {
         public static bool IfClaim(this RazorPage page, string claiName, string claimValue)
         {
-            return CustomAuthorization.ValidUserClaims(page.Context, claiName, claimValue);
+            return CustomAuthorizationConfig.ValidUserClaims(page.Context, claiName, claimValue);
         }
     }
 }

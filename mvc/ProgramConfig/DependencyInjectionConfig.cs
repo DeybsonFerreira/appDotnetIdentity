@@ -5,18 +5,19 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using mvc.Areas.Identity.Data;
+using mvc.Extensions;
 using System;
 
-namespace mvc.Extensions
+namespace mvc.ProgramConfig
 {
-    public static class DependencyInjectionExtension
+    public static class DependencyInjectionConfig
     {
         public static IServiceCollection AddCustomDependences(this IServiceCollection service, WebApplicationBuilder builder)
         {
 
-            RegisterIdentityExtensions.AddIdentityDependences(service, builder);
+            service.AddIdentityDependences(builder);
 
-            RegisterClaimsExtensions.AddCustomClaims(service);
+            service.AddCustomClaims();
 
             AddAllSingleton(service);
 

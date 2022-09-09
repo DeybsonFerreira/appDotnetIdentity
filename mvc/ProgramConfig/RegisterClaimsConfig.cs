@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using mvc.Extensions;
 
-namespace mvc.Extensions
+namespace mvc.ProgramConfig
 {
-    public static class RegisterClaimsExtensions
+    public static class RegisterClaimsConfig
     {
         public static IServiceCollection AddCustomClaims(this IServiceCollection service)
         {

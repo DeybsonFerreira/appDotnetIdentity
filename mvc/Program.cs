@@ -1,14 +1,14 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using mvc.Extensions;
+using mvc.ProgramConfig;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+builder.AddCustomEnvironment();
 
 builder.Services.AddCustomDependences(builder);
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 builder.Services.SetCustomCookies();
-
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())

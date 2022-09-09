@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace mvc.Extensions
+namespace mvc.ProgramConfig
 {
-    public static class CookieExtensions
+    public static class CookieConfig
     {
         public static IServiceCollection SetCustomCookies(this IServiceCollection service)
         {

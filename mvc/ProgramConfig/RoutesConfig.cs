@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Builder;
 
-namespace mvc.Extensions
+namespace mvc.ProgramConfig
 {
-    public static class RoutesExtensions
+    public static class RoutesConfig
     {
         public static WebApplication AddCustomRoutes(this WebApplication app)
         {
